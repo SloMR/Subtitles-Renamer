@@ -14,7 +14,7 @@ This shell script is designed to rename all subtitle files in a specified folder
 
 &nbsp;
 ```shell script
-chomd +x ./arabic_converter.sh
+chomd +x ./rename_subtitle.sh
 ```
 
 To make the script executable.
