@@ -39,3 +39,21 @@ function check_input() {
         exit 1
     fi
 }
+
+# Rename all files in a folder that do not contain a language code in their name to include the language code
+# e.g. MyMovie.srt -> MyMovie.ar.srt
+function check_rename() {
+    check_input
+    echo "Renaming all files that do not contain '$LANGUAGE' in their name"
+
+    SUFFIX="$LANGUAGE"
+    find "$FOLDER_PATH" \( -name "*.srt" -o -name "*.ass" \) -type f | while read -r f; do
+        if [[ $f != *"$LANGUAGE".srt && $f != *"$LANGUAGE".ass ]] && [[ -f $f ]]; then
+            echo_then_run mv -- "$f" "${f%.*}.$SUFFIX.${f##*.}"
+        fi
+    done
+
+    exit 0
+}
+
+check_rename
